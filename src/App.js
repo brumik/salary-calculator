@@ -13,6 +13,7 @@ import {
   Box,
   AppBar,
   LinearProgress,
+  Slider,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
@@ -51,8 +52,9 @@ const doCalculate = ({
 
     savings =
       savings * (1 + investingReturn / 100) + ret.salary * (bonus / 100);
-    inflatedSavings = 
-      inflatedSavings * (1 + investingReturn / 100 - inflation / 100) + ret.salary * (bonus / 100);
+    inflatedSavings =
+      inflatedSavings * (1 + investingReturn / 100 - inflation / 100) +
+      ret.salary * (bonus / 100);
   }
 
   if (investing) {
@@ -92,15 +94,17 @@ const App = () => {
 
   useEffect(() => {
     setLoading(true);
-    setResults(doCalculate({
-      salary: +settings.salary,
-      years: +settings.years,
-      bonus: +settings.bonus,
-      merit: +settings.merit,
-      investing: +settings.investing,
-      investingReturn: +settings.investingReturn,
-      inflation: +settings.inflation,
-    }));
+    setResults(
+      doCalculate({
+        salary: +settings.salary,
+        years: +settings.years,
+        bonus: +settings.bonus,
+        merit: +settings.merit,
+        investing: +settings.investing,
+        investingReturn: +settings.investingReturn,
+        inflation: +settings.inflation,
+      }),
+    );
     setLoading(false);
   }, [settings]);
 
@@ -127,12 +131,28 @@ const App = () => {
               value={settings.salary}
               onChange={(e) => updateSettings("salary", e.target.value)}
             />
+            <Slider
+              size="small"
+              value={settings.salary}
+              onChange={(e) => updateSettings("salary", e.target.value)}
+              step={100000}
+              min={1000}
+              max={500000}
+            />
           </Grid>
           <Grid item>
             <TextField
               label="Planned years to work at the company"
               value={settings.years}
               onChange={(e) => updateSettings("years", e.target.value)}
+            />
+            <Slider
+              size="small"
+              value={settings.years}
+              onChange={(e) => updateSettings("years", e.target.value)}
+              step={1}
+              min={1}
+              max={50}
             />
           </Grid>
           <Grid item>
@@ -141,12 +161,28 @@ const App = () => {
               value={settings.bonus}
               onChange={(e) => updateSettings("bonus", e.target.value)}
             />
+            <Slider
+              size="small"
+              value={settings.bonus}
+              onChange={(e) => updateSettings("bonus", e.target.value)}
+              step={1}
+              min={0}
+              max={100}
+            />
           </Grid>
           <Grid item>
             <TextField
               label="Expected merit % (yearly pay increase)"
               value={settings.merit}
               onChange={(e) => updateSettings("merit", e.target.value)}
+            />
+            <Slider
+              size="small"
+              value={settings.merit}
+              onChange={(e) => updateSettings("merit", e.target.value)}
+              step={1}
+              min={0}
+              max={25}
             />
           </Grid>
           <Grid item>
@@ -174,6 +210,16 @@ const App = () => {
                 updateSettings("investingReturn", e.target.value)
               }
             />
+            <Slider
+              size="small"
+              value={settings.investingReturn}
+              onChange={(e) =>
+                updateSettings("investingReturn", e.target.value)
+              }
+              step={1}
+              min={0}
+              max={25}
+            />
           </Grid>
           <Grid item>
             <TextField
@@ -181,12 +227,18 @@ const App = () => {
               value={settings.inflation}
               onChange={(e) => updateSettings("inflation", e.target.value)}
             />
+            <Slider
+              size="small"
+              value={settings.inflation}
+              onChange={(e) => updateSettings("inflation", e.target.value)}
+              step={1}
+              min={0}
+              max={25}
+            />
           </Grid>
         </Grid>
 
-        <Box my={3}>
-          {loading ? <LinearProgress /> : <hr />}
-        </Box>
+        <Box my={3}>{loading ? <LinearProgress /> : <hr />}</Box>
 
         <Grid container spacing={2} textAlign="center" justifyContent="center">
           <Grid item sm={6} md={3}>
