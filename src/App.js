@@ -50,17 +50,20 @@ const doCalculate = ({
     ret.inflatedSalary =
       ret.inflatedSalary * (1 + merit / 100 - inflation / 100);
 
-    savings =
-      savings * (1 + investingReturn / 100) + ret.salary * (bonus / 100);
-    inflatedSavings =
-      inflatedSavings * (1 + investingReturn / 100 - inflation / 100) +
-      ret.salary * (bonus / 100);
+    if (investing) {
+      savings =
+        savings * (1 + investingReturn / 100) + ret.salary * (bonus / 100);
+      inflatedSavings =
+        inflatedSavings * (1 + investingReturn / 100 - inflation / 100) +
+        ret.salary * (bonus / 100);
+    } else {
+      savings += ret.salary * (bonus / 100);
+      inflatedSavings = inflatedSavings * (1 - inflation / 100) + ret.salary * (bonus / 100);
+    }
   }
 
-  if (investing) {
-    ret.income += savings;
-    ret.inflatedIncome += inflatedSavings;
-  }
+  ret.income += savings;
+  ret.inflatedIncome += inflatedSavings;
 
   return ret;
 };
@@ -135,8 +138,8 @@ const App = () => {
               size="small"
               value={settings.salary}
               onChange={(e) => updateSettings("salary", e.target.value)}
-              step={100000}
-              min={1000}
+              step={10000}
+              min={0}
               max={500000}
             />
           </Grid>
