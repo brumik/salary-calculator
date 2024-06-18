@@ -113,7 +113,7 @@ const App = () => {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Box m={3}>
+      <Box py={3} maxWidth="1100px" marginX="auto">
         <Grid
           container
           spacing={2}
@@ -184,30 +184,30 @@ const App = () => {
           </Grid>
         </Grid>
 
-        <Box my={3} mx={-3}>
+        <Box my={3}>
           {loading ? <LinearProgress /> : <hr />}
         </Box>
 
         <Grid container spacing={2} textAlign="center" justifyContent="center">
-          <Grid item sm={6}>
+          <Grid item sm={6} md={3}>
             <Typography>Base salary at the end:</Typography>
             <Typography variant="h4" gutterBottom>
               {formatter.format(results.salary)}
             </Typography>
           </Grid>
-          <Grid item sm={6}>
+          <Grid item sm={6} md={3}>
             <Typography>Inflated base salary at the end:</Typography>
             <Typography variant="h4" gutterBottom>
               {formatter.format(results.inflatedSalary)}
             </Typography>
           </Grid>
-          <Grid item sm={6}>
+          <Grid item sm={6} md={3}>
             <Typography>Total income:</Typography>
             <Typography variant="h4" gutterBottom>
               {formatter.format(results.income)}
             </Typography>
           </Grid>
-          <Grid item sm={6}>
+          <Grid item sm={6} md={3}>
             <Typography>Inflation adjusted total income:</Typography>
             <Typography variant="h4">
               {formatter.format(results.inflatedIncome)}
