@@ -70,7 +70,7 @@ const doCalculate = ({
 
 const App = () => {
   const [settings, setSettings] = useState({
-    salary: 700000,
+    salary: 50000,
     years: 10,
     bonus: 10,
     merit: 3,
