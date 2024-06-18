@@ -86,14 +86,21 @@ const App = () => {
   const updateSettings = (field, value) => {
     setSettings((old) => ({
       ...old,
-      [field]: +value,
+      [field]: value,
     }));
   };
 
   useEffect(() => {
     setLoading(true);
-    console.log(settings);
-    setResults(doCalculate(settings));
+    setResults(doCalculate({
+      salary: +settings.salary,
+      years: +settings.years,
+      bonus: +settings.bonus,
+      merit: +settings.merit,
+      investing: +settings.investing,
+      investingReturn: +settings.investingReturn,
+      inflation: +settings.inflation,
+    }));
     setLoading(false);
   }, [settings]);
 
@@ -182,25 +189,25 @@ const App = () => {
         </Box>
 
         <Grid container spacing={2} textAlign="center" justifyContent="center">
-          <Grid item sm={3}>
+          <Grid item sm={6}>
             <Typography>Base salary at the end:</Typography>
             <Typography variant="h4" gutterBottom>
               {formatter.format(results.salary)}
             </Typography>
           </Grid>
-          <Grid item sm={3}>
+          <Grid item sm={6}>
             <Typography>Inflated base salary at the end:</Typography>
             <Typography variant="h4" gutterBottom>
               {formatter.format(results.inflatedSalary)}
             </Typography>
           </Grid>
-          <Grid item sm={3}>
+          <Grid item sm={6}>
             <Typography>Total income:</Typography>
             <Typography variant="h4" gutterBottom>
               {formatter.format(results.income)}
             </Typography>
           </Grid>
-          <Grid item sm={3}>
+          <Grid item sm={6}>
             <Typography>Inflation adjusted total income:</Typography>
             <Typography variant="h4">
               {formatter.format(results.inflatedIncome)}
